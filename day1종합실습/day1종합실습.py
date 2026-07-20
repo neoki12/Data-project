@@ -17,18 +17,31 @@
 
 변경 내역
 --------
-- 2026-07-20: 최초 작성. 비동기 수집 + 스키마 검증 + 저장/성능 비교 파이프라인 구현.
+2026-07-20
+  1. requirements.txt 준비 - httpx/pandas/pyarrow/pytest/ruff 설치 후
+     pip freeze로 버전 고정.
+  2. curl로 3개 API(Open-Meteo/Countries.dev/ip-api) 실제 응답 구조를
+     먼저 확인하고, 그 필드명을 그대로 파싱 코드에 반영.
+  3. fetch_json() / collect_all() 작성 - asyncio.gather()로 3개 API를
+     동시에 호출하고, API별 실패가 서로 영향 주지 않도록 개별 try/except 처리.
+  4. WeatherHourRecord / CountryRecord / IPLocationRecord Pydantic v2
+     모델과 parse_weather/parse_country/parse_ip 정의.
+  5. save_and_compare()로 CSV/Parquet 저장·재로딩 시간을 측정하는
+     성능 비교 로직 작성.
+  6. Parquet 최초 호출 시 pyarrow 초기화 비용이 측정치를 왜곡하는 문제를
+     발견해 _warm_up_parquet_engine()으로 수정.
+  7. tests/test_schema.py 작성, pytest 6건 전부 통과 확인.
+  8. ruff check / ruff format 적용해 코드 스타일 정리.
 """
 
+import pandas as pd
 import asyncio
+import httpx
 import logging
 import time
 from pathlib import Path
-from typing import Optional
-
-import httpx
-import pandas as pd
 from pydantic import BaseModel, Field, ValidationError
+from typing import Optional
 
 # ---------------- 로깅 설정 ----------------
 logger = logging.getLogger(__name__)
