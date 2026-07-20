@@ -6,7 +6,7 @@
           저장 및 재로딩까지 확인하는 실습 프로그램
 
 구성
-----------
+---------- 
 1) 예외 처리 + 파일 읽기       : safe_load_csv() - try/except/else/finally
 2) Pydantic v2 스키마 정의     : SalesRecord
 3) 검증 파이프라인             : validate_sales() - valid/errors 분리
