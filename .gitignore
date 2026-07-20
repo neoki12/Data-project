@@ -7,3 +7,7 @@ valid_sales.csv
 errors.json
 checkpoint_valid.csv
 checkpoint_errors.json
+.venv/
+__pycache__/
+*.pyc
+.coverage
