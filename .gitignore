@@ -1,0 +1,9 @@
+.venv
+/venv
+/env
+.env
+*.log
+valid_sales.csv
+errors.json
+checkpoint_valid.csv
+checkpoint_errors.json
