@@ -1,5 +1,5 @@
 """
-pipeline.py의 Pydantic v2 스키마(WeatherHourRecord/CountryRecord/IPLocationRecord)가
+day1종합실습.py의 Pydantic v2 스키마(WeatherHourRecord/CountryRecord/IPLocationRecord)가
 요구된 타입·범위 규칙을 정확히 검증하는지 확인하는 pytest 테스트.
 정상 케이스와 규칙 위반 케이스를 각각 확인한다.
 """
@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import pytest
 from pydantic import ValidationError
 
-from pipeline import CountryRecord, IPLocationRecord, WeatherHourRecord
+from day1종합실습 import CountryRecord, IPLocationRecord, WeatherHourRecord
 
 
 def test_weather_record_valid():
